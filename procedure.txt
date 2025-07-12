@@ -1,0 +1,427 @@
+CREATE OR REPLACE PROCEDURE proc_viewempWithflag_May31(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN VARCHAR2 DEFAULT '',
+   
+    emp_refcur OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    -----------------------------------------------------------------------------
+    IF flag = 'selectall' THEN
+        OPEN emp_refcur FOR
+        SELECT empcode, name FROM Employee_May30;
+
+    ELSIF flag = 'select_empcode' THEN
+        OPEN emp_refcur FOR
+        SELECT empcode, name FROM Employee_May30 WHERE empcode IN (paravalue1);
+    ELSIF flag = 'select_dep_des' THEN
+        OPEN emp_refcur FOR
+        SELECT empcode, name FROM Employee_May30 e WHERE e.department in(paravalue1) and e.designation in(paravalue2) ;
+
+
+    END IF;
+    -----------------------------------------------------------------------------
+END;
+
+SELECT * FROM PROJ_419962;
+
+
+CREATE OR REPLACE PROCEDURE PROC_PROJWITHFLAG(flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN VARCHAR2 DEFAULT '',
+    paravalue3 IN VARCHAR2 DEFAULT '',
+    paravalue4 IN VARCHAR2 DEFAULT '',
+    
+   
+    PROJ_REFCUR OUT SYS_REFCURSOR)
+AS
+BEGIN
+  -----------------------------------------------------------------------------
+    IF flag = 'selectall' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PRO_ID, PROJ_NAME FROM PROJ_419962;
+
+    ELSIF flag = 'select_proid' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PRO_ID, PROJ_NAME FROM PROJ_419962 WHERE PRO_ID IN (paravalue1);
+    ELSIF flag = 'selectpro_guide' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PRO_ID, PROJ_NAME FROM PROJ_419962 P WHERE P.PRO_GUIDE in(paravalue1) and P.PRO_LANG in(paravalue2) ;
+    ELSIF flag = 'select_language' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PROJ_NAME FROM PROJ_419962 P WHERE P.PRO_ID in(paravalue1) and P.PRO_GUIDE in(paravalue2)and P.PRO_LANG in(paravalue3);
+    ELSIF flag = 'select_by_guide_and_language' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PROJ_NAME 
+        FROM PROJ_419962 P 
+        WHERE P.PRO_GUIDE IN (paravalue1) 
+          AND P.PRO_LANG IN (paravalue2) 
+          AND P.PRO_ID IN (paravalue3);
+    ELSIF flag = 'allselection' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT  * FROM PROJ_419962 P WHERE P.PRO_ID in(paravalue1) and P.PRO_GUIDE in(paravalue2)and P.PRO_LANG in(paravalue3)and P.PROJ_NAME in(paravalue4);
+   
+
+
+
+    END IF;
+  END;
+-------------------------------------------
+PROC_434794;
+
+Select * from proj_419962;
+----------------------------------
+proc_insertempWithflag_May31;
+--------------------------------------------
+CREATE OR REPLACE PROCEDURE proc_insertpro419962(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN VARCHAR2 DEFAULT '',
+    paravalue3 IN VARCHAR2 DEFAULT '',
+    paravalue4 IN VARCHAR2 DEFAULT '',
+    PROJ_REFCUR OUT SYS_REFCURSOR
+
+)
+AS
+BEGIN
+    IF flag = 'insert_41' THEN
+        -- Perform the insert operation
+        INSERT INTO PROJ_419962(PRO_ID,PROJ_NAME, PRO_GUIDE,PRO_LANG)
+        VALUES (paravalue1, paravalue2, paravalue3, paravalue4);
+
+
+
+        -- Open the cursor for any subsequent queries if needed
+        OPEN PROJ_REFCUR FOR
+        SELECT * FROM PROJ_419962 WHERE PRO_ID = paravalue1; -- Example query to return the inserted record
+
+    END IF;
+
+
+END;
+
+-----------------------------
+TRAINEE.PROC_INSERTEMPWITHFLAG_MAY31;
+
+SELECT * FROM Employee_May30 WHERE EMPCODE=8;
+
+SELECT * FROM PROJ_419962 WHERE PRO_ID=5;
+
+---------------------------------------------
+CREATE TABLE DOC_419962;
+SELECT * FROM Employee_May30;
+SELECT * FROM PROJ_419962;
+
+proc_updateempWithflag_May31;
+proc_updateempWithflag_May31
+--------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE proc_viewimage_420681(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN BLOB,  -- Remove the default value
+    emp_refcur OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    IF flag = 'insert_1' THEN
+        -- Perform the insert operation
+        INSERT INTO image_table(id, image)
+        VALUES (paravalue1, paravalue2);
+
+        -- Open the cursor for any subsequent queries if needed
+        OPEN emp_refcur FOR
+        SELECT * FROM image_table; WHERE id = paravalue1; -- Example query to return the inserted record
+    END IF;
+END;
+
+ --------------------------------------
+ CREATE OR REPLACE PROCEDURE proc_viewimage_420681(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2,  -- ID of the image to retrieve
+    emp_refcur OUT SYS_REFCURSOR  -- Output cursor for the result set
+)
+AS
+BEGIN
+  IF flag = 'view_1' THEN
+        -- Perform the insert operation
+        
+    -- Open the cursor for selecting the image record based on the provided ID
+    OPEN emp_refcur FOR
+    SELECT * FROM image_table
+    WHERE id = paravalue1;  -- Filter by the provided ID
+    END IF;
+END;
+-----------------------------------------------------------------------------------------------------------
+DECLARE
+
+NUM1 NUMBER:=10;
+NUM2 NUMBER:=20;
+RESULT NUMBER;
+
+BEGIN
+
+RESULT:=NUM1+NUM2;
+DBMS_OUTPUT.PUT_LINE('THE RESULT IS:'||RESULT);
+END;
+
+
+------------------
+SELECT * FROM Employee_May30;
+
+---------------------------------------------
+CREATE OR REPLACE PROCEDURE proc_viewempWithflag_May31(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN VARCHAR2 DEFAULT '',
+   
+    emp_refcur OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    -----------------------------------------------------------------------------
+    IF flag = 'selectall' THEN
+        OPEN emp_refcur FOR
+        SELECT empcode, name FROM Employee_May30;
+
+    ELSIF flag = 'select_empcode' THEN
+        OPEN emp_refcur FOR
+        SELECT empcode, name FROM Employee_May30 WHERE empcode IN (paravalue1);
+    ELSIF flag = 'select_dep_des' THEN
+        OPEN emp_refcur FOR
+        SELECT empcode, name FROM Employee_May30 e WHERE e.department in(paravalue1) and e.designation in(paravalue2) ;
+
+
+    END IF;
+    -----------------------------------------------------------------------------
+END;
+
+SELECT * FROM PROJ_419962;
+
+
+CREATE OR REPLACE PROCEDURE PROC_PROJWITHFLAG(flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN VARCHAR2 DEFAULT '',
+    paravalue3 IN VARCHAR2 DEFAULT '',
+    paravalue4 IN VARCHAR2 DEFAULT '',
+    
+   
+    PROJ_REFCUR OUT SYS_REFCURSOR)
+AS
+BEGIN
+  -----------------------------------------------------------------------------
+    IF flag = 'selectall' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PRO_ID, PROJ_NAME FROM PROJ_419962;
+
+    ELSIF flag = 'select_proid' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PRO_ID, PROJ_NAME FROM PROJ_419962 WHERE PRO_ID IN (paravalue1);
+    ELSIF flag = 'selectpro_guide' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PRO_ID, PROJ_NAME FROM PROJ_419962 P WHERE P.PRO_GUIDE in(paravalue1) and P.PRO_LANG in(paravalue2) ;
+    ELSIF flag = 'select_language' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PROJ_NAME FROM PROJ_419962 P WHERE P.PRO_ID in(paravalue1) and P.PRO_GUIDE in(paravalue2)and P.PRO_LANG in(paravalue3);
+    ELSIF flag = 'select_by_guide_and_language' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT PROJ_NAME 
+        FROM PROJ_419962 P 
+        WHERE P.PRO_GUIDE IN (paravalue1) 
+          AND P.PRO_LANG IN (paravalue2) 
+          AND P.PRO_ID IN (paravalue3);
+    ELSIF flag = 'allselection' THEN
+        OPEN PROJ_REFCUR FOR
+        SELECT  * FROM PROJ_419962 P WHERE P.PRO_ID in(paravalue1) and P.PRO_GUIDE in(paravalue2)and P.PRO_LANG in(paravalue3)and P.PROJ_NAME in(paravalue4);
+   
+
+
+
+    END IF;
+  END;
+-------------------------------------------
+PROC_434794;
+
+Select * from proj_419962;
+----------------------------------
+proc_insertempWithflag_May31;
+--------------------------------------------
+CREATE OR REPLACE PROCEDURE proc_insertpro419962(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN VARCHAR2 DEFAULT '',
+    paravalue3 IN VARCHAR2 DEFAULT '',
+    paravalue4 IN VARCHAR2 DEFAULT '',
+    PROJ_REFCUR OUT SYS_REFCURSOR
+
+)
+AS
+BEGIN
+    IF flag = 'insert_41' THEN
+        -- Perform the insert operation
+        INSERT INTO PROJ_419962(PRO_ID,PROJ_NAME, PRO_GUIDE,PRO_LANG)
+        VALUES (paravalue1, paravalue2, paravalue3, paravalue4);
+
+
+
+        -- Open the cursor for any subsequent queries if needed
+        OPEN PROJ_REFCUR FOR
+        SELECT * FROM PROJ_419962 WHERE PRO_ID = paravalue1; -- Example query to return the inserted record
+
+    END IF;
+
+
+END;
+
+-----------------------------
+TRAINEE.PROC_INSERTEMPWITHFLAG_MAY31;
+
+SELECT * FROM Employee_May30 WHERE EMPCODE=8;
+
+SELECT * FROM PROJ_419962 WHERE PRO_ID=5;
+
+---------------------------------------------
+CREATE TABLE DOC_419962;
+SELECT * FROM Employee_May30;
+SELECT * FROM PROJ_419962;
+
+proc_updateempWithflag_May31;
+proc_updateempWithflag_May31
+--------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE proc_viewimage_420681(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN BLOB,  -- Remove the default value
+    emp_refcur OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    IF flag = 'insert_1' THEN
+        -- Perform the insert operation
+        INSERT INTO image_table(id, image)
+        VALUES (paravalue1, paravalue2);
+
+        -- Open the cursor for any subsequent queries if needed
+        OPEN emp_refcur FOR
+        SELECT * FROM image_table; WHERE id = paravalue1; -- Example query to return the inserted record
+    END IF;
+END;
+
+ --------------------------------------
+ CREATE OR REPLACE PROCEDURE proc_viewimage_420681(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2,  -- ID of the image to retrieve
+    emp_refcur OUT SYS_REFCURSOR  -- Output cursor for the result set
+)
+AS
+BEGIN
+  IF flag = 'view_1' THEN
+        -- Perform the insert operation
+        
+    -- Open the cursor for selecting the image record based on the provided ID
+    OPEN emp_refcur FOR
+    SELECT * FROM image_table
+    WHERE id = paravalue1;  -- Filter by the provided ID
+    END IF;
+END;
+
+ SELECT * FROM image_table;
+------------------------------------------------------
+CREATE OR REPLACE PROCEDURE proc_insertempWithflag_May31(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN VARCHAR2 DEFAULT '',
+    paravalue3 IN VARCHAR2 DEFAULT '',
+    paravalue4 IN VARCHAR2 DEFAULT '',
+    emp_refcur OUT SYS_REFCURSOR
+
+)
+AS
+BEGIN
+    IF flag = 'insert_1' THEN
+        -- Perform the insert operation
+        INSERT INTO Employee_May30(empcode, name, department, designation)
+        VALUES (paravalue1, paravalue2, paravalue3, paravalue4);
+
+
+
+        -- Open the cursor for any subsequent queries if needed
+        OPEN emp_refcur FOR
+        SELECT * FROM Employee_May30 WHERE empcode = paravalue1; -- Example query to return the inserted record
+
+    END IF;
+
+
+END;
+-----------------------------------------------------
+CREATE OR REPLACE PROCEDURE proc_insertpro419962(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN VARCHAR2 DEFAULT '',
+    paravalue3 IN VARCHAR2 DEFAULT '',
+    paravalue4 IN VARCHAR2 DEFAULT '',
+    PROJ_REFCUR OUT SYS_REFCURSOR
+
+)
+AS
+BEGIN
+    IF flag = 'insert_41' THEN
+        -- Perform the insert operation
+        INSERT INTO PROJ_419962(PRO_ID,PROJ_NAME, PRO_GUIDE,PRO_LANG)
+        VALUES (paravalue1, paravalue2, paravalue3, paravalue4);
+
+
+
+        -- Open the cursor for any subsequent queries if needed
+        OPEN PROJ_REFCUR FOR
+        SELECT * FROM PROJ_419962 WHERE PRO_ID = paravalue1; -- Example query to return the inserted record
+
+    END IF;
+
+
+END;
+-----------------------------------------------
+CREATE OR REPLACE PROCEDURE proc_insertimage_420681(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',
+    paravalue2 IN BLOB,  -- Remove the default value
+    emp_refcur OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    IF flag = 'insert_1' THEN
+        -- Perform the insert operation
+        INSERT INTO image_table(id, image)
+        VALUES (paravalue1, paravalue2);
+
+        -- Open the cursor for any subsequent queries if needed
+        OPEN emp_refcur FOR
+        SELECT * FROM image_table WHERE id = paravalue1; -- Example query to return the inserted record
+    END IF;
+END;
+-----------------------------------
+CREATE OR REPLACE PROCEDURE proc_proj_doc_434794(
+    flag IN VARCHAR2,
+    paravalue1 IN VARCHAR2 DEFAULT '',  -- doc_id
+    paravalue2 IN VARCHAR2 DEFAULT '',  -- proj_id
+    paravalue3 IN BLOB,                 -- Document (binary content)
+    Pimg_refcur OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    IF flag = 'updatedoc_proj' THEN
+        UPDATE proj_doc_434794 E
+        SET
+            E.proj_id = paravalue2,
+            E.Document = paravalue3
+        WHERE
+            E.doc_id = paravalue1;
+
+        OPEN Pimg_refcur FOR
+        SELECT * FROM proj_doc_434794 WHERE doc_id = paravalue1;
+    END IF;
+END;
+----------------------------------------------
+
